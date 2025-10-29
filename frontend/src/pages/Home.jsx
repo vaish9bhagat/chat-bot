@@ -22,7 +22,7 @@ const App = () => {
   };
 
   useEffect(() => {
-    const socketinstance = io("http://localhost:3000");
+    const socketinstance = io("https://chat-bot-wese.onrender.com");
     setsocket(socketinstance);
 
     socketinstance.on("ai-message-response", (data) => {
@@ -55,25 +55,21 @@ const App = () => {
 
   const handleSend = () => {
     if (input.trim()) {
-    
       const userMessage = { text: input, sender: "user" };
       setMessages((prevMessages) => [...prevMessages, userMessage]);
 
       setIsLoading(true);
 
-     
       socket.emit("ai-message", { prompt: input });
       setTimeout(scrollToBottom, 0);
       setInput("");
     }
   };
 
-
   const ChatBubble = ({ message }) => {
     const isUser = message.sender === "user";
     const isBot = message.sender === "bot";
 
-  
     const userClasses = "bg-blue-600 text-white self-end rounded-bl-xl";
     const botClasses = "bg-gray-200 text-gray-800 self-start rounded-br-xl";
 
@@ -92,7 +88,6 @@ const App = () => {
     );
   };
 
-
   const ChatHeader = () => {
     return (
       <div className="flex items-center p-4 bg-white/50 backdrop-blur-md rounded-t-3xl border-b border-gray-200">
@@ -103,7 +98,6 @@ const App = () => {
           </h2>
         </div>
         <div className="h-10 w-10 bg-gray-200 rounded-full flex items-center justify-center">
-      
           <span role="img" aria-label="robot">
             🤖
           </span>
@@ -111,7 +105,6 @@ const App = () => {
       </div>
     );
   };
-
 
   const ChatInput = () => {
     return (
